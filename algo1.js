@@ -1,4 +1,40 @@
-var numOfSubarrays = function (arr, k, threshold) {};
+var numOfSubarrays = function (arr, k, threshold) {
+  let result = [];
+
+  let left = 0;
+  let right = k - 1;
+  let curSum = 0;
+
+  for (let i = 0; i < k; i++) {
+    curSum += arr[i];
+  }
+
+  let curArray = arr.slice(0, k);
+
+  if (curSum / k >= threshold) {
+    result.push(curArray);
+  }
+
+  for (let i = 0; i < arr.length; i++) {
+    curSum -= arr[left];
+
+    left++;
+    right++;
+    curSum += arr[right];
+    if (curSum / k >= threshold) {
+      result.push(arr.slice(left, right + 1));
+    }
+  }
+  return result;
+
+  // 0 2 = 6
+  // 1 3 = 6
+  // 2 4 = 9
+
+  // 0  1 2 3 4 5 6 7
+  // [2,2,2,2,5,5,5,8]
+  // 2 2 2, 2 5 5,
+};
 
 // 1343. Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
 
